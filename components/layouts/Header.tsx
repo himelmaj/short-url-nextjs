@@ -1,19 +1,24 @@
 "use client";
+import Link from "next/link";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 const Header = () => {
+
     return (
         <header
-            className="mb-12 flex w-full flex-wrap pb-3 text-sm sm:flex-nowrap sm:justify-start"
+            className=" flex w-full flex-wrap pb-3 text-sm sm:flex-nowrap sm:justify-start"
         >
             <nav
                 className="relative mx-auto flex w-full items-center justify-between sm:flex sm:items-center"
                 aria-label="global"
             >
-                <h1 className="flex-none text-xl font-semibold" aria-label="Brand">shrthat</h1>
+                <Link href="/">
+                    <h2 className="flex-none text-xl font-semibold" aria-label="Brand">sh🌐rthen</h2>
+                </Link>
 
-                <div className="flex flex-row items-center justify-center gap-x-5 sm:gap-x-7">
-
-                </div>
+                <a href="https://github.com/himelmaj/short-url-nextjs">
+                    <GitHubLogoIcon  className="w-6 h-6" />
+                </a>
             </nav>
         </header>
     )

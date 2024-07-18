@@ -1,25 +1,49 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { InsertUrl, SelectUrl, urlsTable } from "@/drizzle/schema";
-import { asc, between, count, eq, getTableColumns, sql } from "drizzle-orm";
+import { urlsTable, SelectUrl } from "@/drizzle/schema";
+import { eq } from "drizzle-orm";
+import { actionClient } from "@/lib/safe-action";
+import { urlSchema } from "@/types/url";
+import { rateLimit } from "./rate-limit";
+import { headers } from "next/headers";
 
-export const getUrls = async () : Promise<SelectUrl[]> => {
-  return db.select().from(urlsTable).orderBy(asc(urlsTable.id));
-}
 
-export const getUrlById = async (id: SelectUrl["id"]) : Promise<SelectUrl[]> => {
-    return db.select().from(urlsTable).where(eq(urlsTable.id, id));
-}
+export const createUrl = actionClient.schema(urlSchema).action(async ({ parsedInput: { url } }) => {
+    try {
+        // rate limit
+        const ip = headers().get('x-forwarded-for');
+        const { success: limitReached } = await rateLimit.limit(ip!);
+        if (!limitReached) return { error: `Rate limit reached` };
 
-export const createUrl = async (data: InsertUrl) => {
-    await db.insert(urlsTable).values(data);
-}
 
-export const updateUrl = async (id: SelectUrl["id"], data: Partial<SelectUrl>) => {
-    await db.update(urlsTable).set(data).where(eq(urlsTable.id, id));
-}
+        // check if url already exists
+        const foundUrl = await db.query.urlsTable.findFirst({ where: eq(urlsTable.url, url), columns: { shortUrl: true } });
+        if (foundUrl) return { success: foundUrl };
 
-export const deleteUrl = async (id: SelectUrl["id"]) => {
-    await db.delete(urlsTable).where(eq(urlsTable.id, id));
+        // create new url
+        const [newUrl] = await db.insert(urlsTable).values({ url }).returning({ shortUrl: urlsTable.shortUrl });
+
+
+        return { success: newUrl };
+
+    } catch (err) {
+        return { error: err };
+    }
+});
+
+
+export const getUrlByShortUrl = async (shortUrl: SelectUrl["shortUrl"]) => {
+    try {
+        // check if url exists
+        const foundUrl = await db.query.urlsTable.findFirst({ where: eq(urlsTable.shortUrl, shortUrl), columns: { url: true } });
+
+        // if not found
+        if (!foundUrl) return null;
+
+        // if found
+        return { success: foundUrl }
+    } catch (err) {
+        return { error: err }
+    }
 }

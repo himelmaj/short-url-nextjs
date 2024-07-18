@@ -9,7 +9,6 @@ export const generateFakeUsers = (count: number) => {
   for (let i = 0; i < count; i++) {
     rows.push({
       url: faker.internet.url({ appendSlash: true }),
-      shortUrl: faker.string.alpha(10)
     });
   }
 
