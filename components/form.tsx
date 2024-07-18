@@ -35,7 +35,7 @@ export default function Form() {
         };
         startAnimation();
         return () => clearInterval(interval);
-    }, [placeholders.length]);
+    }, []);
 
 
     const { execute, status } = useAction(createUrl, {
