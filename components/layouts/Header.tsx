@@ -16,7 +16,7 @@ const Header = () => {
                     <h2 className="flex-none text-xl font-semibold" aria-label="Brand">sh🌐rthen</h2>
                 </Link>
 
-                <a href="https://github.com/himelmaj/short-url-nextjs">
+                <a href="https://github.com/himelmaj/short-url-nextjs" aria-label="GitHub">
                     <GitHubLogoIcon  className="w-6 h-6" />
                 </a>
             </nav>

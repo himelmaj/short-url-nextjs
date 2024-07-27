@@ -23,7 +23,26 @@ export const metadata: Metadata = {
       url: "https://himelmaj.vercel.app",
     },
   ],
-
+  keywords: ["url", "shortener", "shorten", "link", "short"],
+  twitter: {
+    site: "@himelmaj",
+    card: "summary_large_image",
+    title: "Sh🌐rten URLs",
+    images: [{ url: "https://sh-rten.vercel.app/screenshot.webp", alt: "Sh🌐rten URLs" } ],
+    description: "Sh🌐rten your URLs with ease",
+    creator: "@himelmaj",
+    siteId: "sh-rten.vercel.app",
+    creatorId: "@himelmaj",
+  },
+  openGraph: {
+    title: "Sh🌐rten URLs",
+    description: "Sh🌐rten your URLs with ease",
+    images: [{ url: "https://sh-rten.vercel.app/screenshot.webp", alt: "Sh🌐rten URLs" }],
+    url: "https://sh-rten.vercel.app",
+    type: "website",
+    siteName: "Sh🌐rten URLs",
+  },
+  manifest: "/manifest.json",
 };
 
 

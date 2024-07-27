@@ -21,7 +21,7 @@ const Footer = () => {
                 <Image src={VercelIcon} alt="Vercel" className="w-14" />
             </section>
             <span className="text-sm sm:text-center text-zinc-800/90 dark:text-zinc-200/90 select-none">© {currentYear}
-                <a href="https://himelmaj.vercel.app" className="hover:underline"> himelmaj</a>. All rights reserved.
+                <a href="https://himelmaj.vercel.app" className="hover:underline" aria-label="Himel Majumder's Links"> himelmaj</a>. All rights reserved.
             </span>
         </footer>
 
