@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { Roboto } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import "./globals.css";
+
 import { Toaster } from 'react-hot-toast';
-const inter = Inter({ subsets: ["latin"] });
 
 const roboto = Roboto({
   weight: "400",
@@ -30,7 +29,7 @@ export const metadata: Metadata = {
     title: "Sh🌐rten URLs",
     images: [{ url: "https://sh-rten.vercel.app/screenshot.webp", alt: "Sh🌐rten URLs" } ],
     description: "Sh🌐rten your URLs with ease",
-    creator: "@himelmaj",
+    creator: "@himelmaj", 
     siteId: "sh-rten.vercel.app",
     creatorId: "@himelmaj",
   },
